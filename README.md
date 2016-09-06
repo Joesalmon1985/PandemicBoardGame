@@ -16,10 +16,10 @@ Some basic front end website languages (HTML, JavaScript and the like)
 
 
 **What do the various files do / contain?**
-There 
-1. Fullboard.txt
-2. Game.py
-3. Pandemicgame.py
+
+1. fullboard.txt
+2. game.py
+3. pandemicgame.py
 4. README.md
 5. rules.md
 6. testboard.txt
