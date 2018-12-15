@@ -385,9 +385,12 @@ public class Player
         int playerChoice = scan.nextInt();
         switch (playerChoice)
         {
+            case 0:
+                getGameState();
+                break;
             case 1:
-                System.out.println("Write in the destination city");
-                inputCityDestination();
+                System.out.println("Write in the destination city number");
+                inputCityIntDestination();
                 break;
             case 2:
                 tryTreat(1);
@@ -407,24 +410,24 @@ public class Player
     public void getGameState()
     {
         City[] cities = pandemicBoard.cities;
+        System.out.println("cities are as below");
         for (int i = 0 ; i < cities.length ; i++)
         {
-            System.out.print("The cities are " + i + " " + cities[i].getName() + " " + cities[i].getMaxCube() + " cubes");
+            System.out.println(+ i + " " + cities[i].getName() + " " + cities[i].getMaxCube() + " cubes");
         }
         System.out.println("");
         System.out.println("These cards are in hand");
         for (int i = 0 ; i < hand.length ; i++)
         {
-            System.out.print(hand[i].getName());
+            System.out.print(hand[i].getName() + " : ");
         }
     }
 
-
-    public void inputCityDestination()
+    public void inputCityIntDestination()
     {
         Scanner scan=new Scanner(System.in);
-        String destination = scan.nextLine();
-        goStringCity(destination);
+        int destination = scan.nextInt();
+        goObjectCity(pandemicBoard.cities[destination]);
     }
 
 
@@ -603,6 +606,7 @@ public class Player
         
         
     }
+
     public void goObjectCity(City destination)
     {
         City[] destinationToSet = new City[1];
