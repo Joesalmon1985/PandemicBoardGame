@@ -531,7 +531,7 @@ public class Player
         pandemicBoard.resetDistances();
         setDestination(destinations);
         int distance = 1;
-        while (playerPiece.getLocation().getDistance() == 9999999)
+        while (playerPiece.getLocation().getDistance() == pandemicBoard.length)
         {
             // System.out.println("Looking for places distance of " + distance);
             for (int i = 0 ; i < pandemicBoard.cities.length ; i ++)
@@ -596,7 +596,7 @@ public class Player
     
     public City calculateDestination()
     {
-        int closestDestination = 9999999;
+        int closestDestination = pandemicBoard.cities.length;
         City toReturn = new City("error!","error!");
         for (int i = 0 ; i < playerPiece.getLocationConnections().length; i++)
         {
