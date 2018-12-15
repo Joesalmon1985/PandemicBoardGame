@@ -9,7 +9,15 @@ public class PandemicGame
 {
     public static void main(String[] args)
 	{
-        System.out.println("starting new game");
+        System.out.println("starting new game type " + args[0]);
+        if (args[0].equals("0"))
+        {
+            makeType0Game();        
+        }
+    }
+    
+    public static void makeType0Game()
+    {
     	PandemicGame testgame;
     	Player jesus;
     	Player beyonce;
