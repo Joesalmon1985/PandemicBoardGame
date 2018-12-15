@@ -364,7 +364,16 @@ public class Player
     /**
      * These methods are used for AI controlled players
      */
+
     public void makeDecision()
+    {
+	    if (playerType == 0)
+	    {
+        oldAIDecision();
+	    }
+    }
+
+    public void oldAIDecision()
     {
         System.out.print(this.getPlayerName() + " is thinking..... ");
         boolean checkCure = checkCureWorthIt();
