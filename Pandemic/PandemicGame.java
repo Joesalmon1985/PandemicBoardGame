@@ -19,9 +19,58 @@ public class PandemicGame
             case 1:
             makeType1Game();
             break;
+
+            case 2:
+            makeType2Game();
+            break;
         }
     }
 
+    public static void makeType2Game()
+    {
+    	PandemicGame testgame;
+    	Player jesus;
+    	Player beyonce;
+        Player susan;
+        Player deadpool;
+        beyonce = new Player("Beyonce",2);
+        jesus = new Player("Jesus",2);
+        Player[] currentPlayers;
+        currentPlayers = new Player[2];
+        currentPlayers[0] = jesus;
+        currentPlayers[1] = beyonce;
+        
+        int[] infectRate;
+        infectRate = new int[13];
+        infectRate[0] = 2;
+        infectRate[1] = 2;
+        infectRate[2] = 2;
+        infectRate[3] = 3;
+        infectRate[4] = 3;
+        infectRate[5] = 4;
+        infectRate[6] = 4;
+        infectRate[7] = 4;
+        infectRate[8] = 4;
+        infectRate[9] = 5;
+        infectRate[10] = 5;
+        infectRate[11] = 5;
+        infectRate[12] = 6;
+        
+        int[] initalInfect;
+        initalInfect = new int[3];
+        initalInfect[0] = 3;
+        initalInfect[1] = 3;
+        initalInfect[2] = 3;
+        int colours;
+        colours = 4;
+        int cure;
+        cure = 1;
+        int epidemics;
+        epidemics = 5;
+        testgame = new PandemicGame(currentPlayers, colours, cure,epidemics, infectRate, 8, initalInfect, 15,7,1,"/home/joe/Git/PandemicBoardGame/Pandemic/cities.csv");
+    
+        testgame.playGame();
+    }
     public static void makeType1Game()
     {
     	PandemicGame testgame;

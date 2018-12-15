@@ -368,16 +368,46 @@ public class Player
 
     public void makeDecision()
     {
-	    if (playerType == 0)
+        
+        switch(playerType)
 	    {
-            oldAIDecision();
-	    }
-        if (playerType == 1)
-        {
-            humanInputDecision();
+            case 0:
+                oldAIDecision();
+                break;
+            case 1:
+                humanInputDecision();
+                break;
+            case 2:
+                minimalInputDecision();
+                break;
         }
     }
 
+    public void minimalInputDecision()
+    {
+        Scanner scan=new Scanner(System.in);
+        int playerChoice = scan.nextInt();
+        getGameState();
+        switch (playerChoice)
+        {
+            case 1:
+                System.out.println("Write in the destination city number");
+                inputCityIntDestination();
+                break;
+            case 2:
+                tryTreat(1);
+                break;
+            case 3:
+                buildResearchStation(playerPiece.getLocation());
+                break;
+            case 4:
+                checkTryCure();
+                break;
+            case 5:
+                driveRandom();
+                break;
+        }                
+    }
     public void humanInputDecision()
     {
         Scanner scan=new Scanner(System.in);
@@ -429,6 +459,8 @@ public class Player
         int destination = scan.nextInt();
         goObjectCity(pandemicBoard.cities[destination]);
     }
+
+
 
 
 // methods used for old AI players
@@ -611,7 +643,7 @@ public class Player
     {
         City[] destinationToSet = new City[1];
         destinationToSet[0]=destination;
-        System.out.println("Setting as " + destination + "as destination.");
+        System.out.println("Setting as " + destination.getName() + "as destination.");
         getDistances(destinationToSet);
         System.out.println("Calculating destination");
         City toDriveTo = calculateDestination();
