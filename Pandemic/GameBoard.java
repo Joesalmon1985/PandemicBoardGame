@@ -343,7 +343,7 @@ public class GameBoard
     {
         for (int i = 0 ; i < cities.length ; i ++)
         {
-            cities[i].setDistance(9999999);
+            cities[i].setDistance(cities.length);
         }
     }
     
