@@ -15,8 +15,8 @@ public class PandemicGame
     	Player beyonce;
         Player susan;
         Player deadpool;
-        beyonce = new Player("Beyonce");
-        jesus = new Player("Jesus");
+        beyonce = new Player("Beyonce",0);
+        jesus = new Player("Jesus",0);
         Player[] currentPlayers;
         currentPlayers = new Player[2];
         currentPlayers[0] = jesus;

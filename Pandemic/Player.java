@@ -23,14 +23,16 @@ public class Player
     Piece playerPiece;
     String[] possibleColour = {"red","blue","yellow","black","purple"};
     City[] travelMap;
+    int playerType;
 
 
     /**
      * Constructor for objects of class Player
      */
-    public Player(String givenName)
+    public Player(String playerName, int playerType)
     {
-        playerName = givenName;
+        this.playerName = playerName;
+	this.playerType = playerType;
         hand = new PlayerCard[0];
         playerAction = 4;
         tactic = 50;
