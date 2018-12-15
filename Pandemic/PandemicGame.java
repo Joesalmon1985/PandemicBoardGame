@@ -60,10 +60,10 @@ public class PandemicGame
         int colours;
         colours = 4;
         int cure;
-        cure = 5;
+        cure = 1;
         int epidemics;
         epidemics = 5;
-        testgame = new PandemicGame(currentPlayers, colours, cure,epidemics, infectRate, 8, initalInfect, 9,7,1,"/home/joe/Git/PandemicBoardGame/Pandemic/cities.csv");
+        testgame = new PandemicGame(currentPlayers, colours, cure,epidemics, infectRate, 8, initalInfect, 15,7,1,"/home/joe/Git/PandemicBoardGame/Pandemic/cities.csv");
     
         testgame.playGame();
     }

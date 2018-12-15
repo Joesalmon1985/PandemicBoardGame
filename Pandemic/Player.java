@@ -396,15 +396,29 @@ public class Player
                 buildResearchStation(playerPiece.getLocation());
                 break;
             case 4:
-                checkCureWorthIt();
+                checkTryCure();
                 break;
             case 5:
                 driveRandom();
                 break;
-        }
-
-                
+        }                
     }
+
+    public void getGameState()
+    {
+        City[] cities = pandemicBoard.cities;
+        for (int i = 0 ; i < cities.length ; i++)
+        {
+            System.out.print("The cities are " + i + " " + cities[i].getName() + " " + cities[i].getMaxCube() + " cubes");
+        }
+        System.out.println("");
+        System.out.println("These cards are in hand");
+        for (int i = 0 ; i < hand.length ; i++)
+        {
+            System.out.print(hand[i].getName());
+        }
+    }
+
 
     public void inputCityDestination()
     {
@@ -424,7 +438,10 @@ public class Player
         if (checkCure)
         {
             System.out.println("might be worth trying to find a cure.");
-            checkTryCure();
+            if (!checkTryCure())
+            {
+                tryDriveResearch();
+            }
         }
         if (!checkCure && (getDistanceResearch() > 3) && (tactic > 0) )
         {
@@ -512,7 +529,6 @@ public class Player
             else
             {
                 System.out.println("They need to go to a researh station.");
-                tryDriveResearch();
             }
         }
         else 
