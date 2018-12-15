@@ -5,6 +5,7 @@
  * @author (Joe Salmon) 
  * @version (03.12.2018)
  */
+import java.util.Scanner;
 import java.util.Random;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -362,16 +363,41 @@ public class Player
     
     
     /**
-     * These methods are used for AI controlled players
+     * These methods are used for controlling players
      */
 
     public void makeDecision()
     {
 	    if (playerType == 0)
 	    {
-        oldAIDecision();
+            oldAIDecision();
 	    }
+        if (playerType == 1)
+        {
+            humanInputDecision();
+        }
     }
+
+    public void humanInputDecision()
+    {
+        Scanner scan=new Scanner(System.in);
+        System.out.println("Choose an action for the player \n 0 = get game state (won't cost an action) \n 1 = go towards \n 2 = Treat disease \n 3 = Build a research centre \n 4 = cure disease \n 5 = drive randomly");
+        int playerChoice = scan.nextInt();
+        switch (playerChoice)
+        {
+            case 1:
+                System.out.println("thingy");
+                break;
+            case 5:
+                driveRandom();
+                break;
+        }
+
+                
+    }
+
+// methods used for old AI players
+
 
     public void oldAIDecision()
     {
