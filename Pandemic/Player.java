@@ -386,7 +386,17 @@ public class Player
         switch (playerChoice)
         {
             case 1:
-                System.out.println("thingy");
+                System.out.println("Write in the destination city");
+                inputCityDestination();
+                break;
+            case 2:
+                tryTreat(1);
+                break;
+            case 3:
+                buildResearchStation(playerPiece.getLocation());
+                break;
+            case 4:
+                checkCureWorthIt();
                 break;
             case 5:
                 driveRandom();
@@ -395,6 +405,14 @@ public class Player
 
                 
     }
+
+    public void inputCityDestination()
+    {
+        Scanner scan=new Scanner(System.in);
+        String destination = scan.nextLine();
+        goStringCity(destination);
+    }
+
 
 // methods used for old AI players
 
@@ -561,7 +579,26 @@ public class Player
         getDistances(pandemicBoard.getResearchLocations());
         return playerPiece.getLocation().getDistance();
     }
-    
+   
+    public void goStringCity(String destination)
+    {
+        int cityPos = pandemicBoard.findCityPosition(destination);
+        goObjectCity(pandemicBoard.cities[cityPos]);
+        
+        
+    }
+    public void goObjectCity(City destination)
+    {
+        City[] destinationToSet = new City[1];
+        destinationToSet[0]=destination;
+        System.out.println("Setting as " + destination + "as destination.");
+        getDistances(destinationToSet);
+        System.out.println("Calculating destination");
+        City toDriveTo = calculateDestination();
+        System.out.println("I'll try to drive to " + toDriveTo.getName());
+        driveCity(playerPiece.getLocation(),toDriveTo);        
+
+    }
     
     public void getDistances(City[] destinations)
     {
