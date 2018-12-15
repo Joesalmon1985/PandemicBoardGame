@@ -531,7 +531,7 @@ public class Player
         pandemicBoard.resetDistances();
         setDestination(destinations);
         int distance = 1;
-        while (playerPiece.getLocation().getDistance() == pandemicBoard.length)
+        while (playerPiece.getLocation().getDistance() == pandemicBoard.cities.length)
         {
             // System.out.println("Looking for places distance of " + distance);
             for (int i = 0 ; i < pandemicBoard.cities.length ; i ++)
