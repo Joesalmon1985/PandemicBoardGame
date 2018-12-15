@@ -380,7 +380,37 @@ public class Player
             case 2:
                 minimalInputDecision();
                 break;
+            case 3:
+                randomInputDecision();
+                break;
         }
+    }
+
+    public void randomInputDecision()
+    {
+        Random rand = new Random();
+        int playerChoice1 = rand.nextInt(50);
+        int playerChoice2 = rand.nextInt(50);
+        getGameState();
+        switch (playerChoice1)
+        {
+            case 1:
+                System.out.println("Write in the destination city number");
+                goObjectCity(pandemicBoard.cities[playerChoice2]);
+                break;
+            case 2:
+                tryTreat(1);
+                break;
+            case 3:
+                buildResearchStation(playerPiece.getLocation());
+                break;
+            case 4:
+                checkTryCure();
+                break;
+            case 5:
+                driveRandom();
+                break;
+        }                
     }
 
     public void minimalInputDecision()
@@ -408,6 +438,7 @@ public class Player
                 break;
         }                
     }
+    
     public void humanInputDecision()
     {
         Scanner scan=new Scanner(System.in);
