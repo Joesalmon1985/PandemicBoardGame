@@ -54,11 +54,11 @@ public class Player
             if (pandemicBoard.playerDeck.getSize()!= 0)
             {
                 addCard(pandemicBoard.playerDeck.drawTop(this));
-                System.out.println(this.getPlayerName() + " draws a card");
+                // System.out.println(this.getPlayerName() + " draws a card");
             }
             else 
             {
-                System.out.println("no more cards left");
+                // System.out.println("no more cards left");
             }
         }
     }
@@ -73,7 +73,7 @@ public class Player
     {
         if (addedCard.isEpidemic)
         {
-            System.out.println("EPIDEMIC DRAWN!");
+            // System.out.println("EPIDEMIC DRAWN!");
             pandemicBoard.resolveEpidemic();
         }
         else
@@ -140,12 +140,12 @@ public class Player
         {
             if (destination == (location.getConnectedCities()[i]))
             {
-//                System.out.println("found a match");
+//                // System.out.println("found a match");
                 return true;
             }
             else
             {
-//                System.out.println("not connected city");
+//                // System.out.println("not connected city");
                 
             }
         }
@@ -160,12 +160,12 @@ public class Player
         {
             if (cardName.equals(getHand()[i].getCardName()))
                 {
-//                    System.out.println("found matching card in hand");
+//                    // System.out.println("found matching card in hand");
                     return i;
                 }
             else
                 {
-//                    System.out.println("not found yet");
+//                    // System.out.println("not found yet");
                 }
         }
         return 0;
@@ -224,7 +224,7 @@ public class Player
         if (pandemicBoard.checkResearchStation(location) && 
         getCountXCards(diseaseColour) >= pandemicBoard.getNeededForCure())
         {
-            System.out.println("Its possible to discover a cure");
+            // System.out.println("Its possible to discover a cure");
             return true;
         }
         return false;
@@ -241,7 +241,7 @@ public class Player
         }
         else
         {
-            System.out.println("not in the right place");
+            // System.out.println("not in the right place");
             toReturn = false;
         }
         if (location.getCubeColour(colour)>0)
@@ -250,7 +250,7 @@ public class Player
         }
         else
         {
-            System.out.println("No cubes of that colour");
+            // System.out.println("No cubes of that colour");
             toReturn = false;
         }
         return toReturn;        
@@ -265,7 +265,7 @@ public class Player
             // System.out.println("Looking at " + locationName + " and " + hand[i].getName());
             if (locationName == hand[i].getName())
             {
-                System.out.println("and have the card.");
+                // System.out.println("and have the card.");
                 toReturn = true;
             }
         }
@@ -290,7 +290,7 @@ public class Player
             discardCard(locationName);
             pandemicBoard.setUnplacedResearch(location);
             decrementPlayerAction();
-            // System.out.println("building a research station in " + locationName);
+            // System.out.print(locationName);
             return true;
         }
         return false;
@@ -301,7 +301,7 @@ public class Player
     {
         if(checkTreatDisease(location,colour))
         {
-            System.out.println("Removing a " + colour + " cube from " + location.getName());
+            // System.out.println("Removing a " + colour + " cube from " + location.getName());
             location.removeCube(colour);
             decrementPlayerAction();
             return true;
@@ -317,14 +317,14 @@ public class Player
         // System.out.println("attempting to move " + getPlayerName() + " to " + destination.getName() + " from "+ location.getName());
         if (checkDestinationConnected(location,destination))
         {
-            System.out.println(getPlayerName() + " drives from " + location.getName() + " to " + destination.getName() + ".");
+            // System.out.println(getPlayerName() + " drives from " + location.getName() + " to " + destination.getName() + ".");
             playerPiece.setLocation(destination);
             decrementPlayerAction();
             return true;
         }
         else 
         {
-            System.out.println("the location isn't connected");
+            // System.out.println("the location isn't connected");
         }
         return false;
     }
@@ -332,13 +332,13 @@ public class Player
     // Charter Flight action
     public boolean charterFlight(City location, City destination)
     {
-//        System.out.println(getPlayerName() + " wants to flying from " + 
+//        // System.out.println(getPlayerName() + " wants to flying from " + 
 //        location.getName() + " to "+ destination.getName() + 
 //        " on a charter flight");
         if (checkPlayerCard(location.getName())>0)
         {
-            System.out.println(getPlayerName() + "takes a charter flight to " + 
-            destination.getName() + " from " + location.getName() );
+            // System.out.println(getPlayerName() + "takes a charter flight to " + 
+            // destination.getName() + " from " + location.getName() );
             discardCard(location.getName());
             playerPiece.setLocation(destination);
             decrementPlayerAction();
@@ -389,25 +389,61 @@ public class Player
     public void randomInputDecision()
     {
         Random rand = new Random();
-        int playerChoice1 = rand.nextInt(5)+1;
+        System.out.print(playerPiece.getLocation().getName());
+        System.out.print("$");
+        int playerChoice1 = rand.nextInt(4)+1;
         int playerChoice2 = rand.nextInt(pandemicBoard.cities.length-1);
+        System.out.print(playerChoice1 + "0");
         switch (playerChoice1)
         {
             case 1:
-                System.out.println("Write in the destination city number");
-                goObjectCity(pandemicBoard.cities[playerChoice2]);
+                System.out.print(playerChoice2);
+                if (!goObjectCity(pandemicBoard.cities[playerChoice2]))
+                {
+                    driveRandom();
+                }
                 break;
             case 2:
-                tryTreat(1);
+                if (!tryTreat(1))
+                {
+                    System.out.print(playerChoice2);
+                    if (!goObjectCity(pandemicBoard.cities[playerChoice2]))
+                    {
+                        driveRandom();
+                    }
+                }
+                else 
+                {
+                    System.out.print("99");
+                }
                 break;
             case 3:
-                buildResearchStation(playerPiece.getLocation());
+                if (!buildResearchStation(playerPiece.getLocation()))
+                {
+                    System.out.print(playerChoice2);
+                    if (!goObjectCity(pandemicBoard.cities[playerChoice2]))
+                    {
+                        driveRandom();
+                    }
+                }                
+                else 
+                {
+                    System.out.print("99");
+                }
                 break;
             case 4:
-                checkTryCure();
-                break;
-            case 5:
-                driveRandom();
+                if (!checkTryCure())
+                {
+                    System.out.print(playerChoice2);
+                    if (!goObjectCity(pandemicBoard.cities[playerChoice2]))
+                    {
+                        driveRandom();
+                    }
+                }
+                else 
+                {
+                    System.out.print("99");
+                }
                 break;
         }                
     }
@@ -420,7 +456,7 @@ public class Player
         switch (playerChoice)
         {
             case 1:
-                System.out.println("Write in the destination city number");
+                // System.out.println("Write in the destination city number");
                 inputCityIntDestination();
                 break;
             case 2:
@@ -441,7 +477,7 @@ public class Player
     public void humanInputDecision()
     {
         Scanner scan=new Scanner(System.in);
-        System.out.println("Choose an action for the player \n 0 = get game state (won't cost an action) \n 1 = go towards \n 2 = Treat disease \n 3 = Build a research centre \n 4 = cure disease \n 5 = drive randomly");
+        // System.out.println("Choose an action for the player \n 0 = get game state (won't cost an action) \n 1 = go towards \n 2 = Treat disease \n 3 = Build a research centre \n 4 = cure disease \n 5 = drive randomly");
         int playerChoice = scan.nextInt();
         switch (playerChoice)
         {
@@ -449,7 +485,7 @@ public class Player
                 getGameState();
                 break;
             case 1:
-                System.out.println("Write in the destination city number");
+                // System.out.println("Write in the destination city number");
                 inputCityIntDestination();
                 break;
             case 2:
@@ -467,25 +503,48 @@ public class Player
         }                
     }
 
+        public void getMinimalGameState()
+    {
+        City[] cities = pandemicBoard.cities;
+        System.out.print("£");
+        for (int i = 0 ; i < cities.length ; i++)
+        {
+            System.out.print(cities[i].getMaxCube() + ",");
+        }
+        System.out.print("!");
+        for (int i = 0 ; i < cities.length ; i++)
+        {
+            if(i< hand.length)
+            {
+                System.out.print(hand[i].getName() + ",");
+            }
+            else 
+            {
+                System.out.print(",");
+            }
+        }
+    }
+    
+    
     public void getGameState()
     {
         City[] cities = pandemicBoard.cities;
-        System.out.println("cities are as below");
+        // System.out.println("cities are as below");
         for (int i = 0 ; i < cities.length ; i++)
         {
-            System.out.println(+ i + " " + cities[i].getName() + " " + cities[i].getMaxCube() + " cubes");
+            // System.out.println(+ i + " " + cities[i].getName() + " " + cities[i].getMaxCube() + " cubes");
         }
-        System.out.println("");
-        System.out.println("These cards are in hand");
+        // System.out.println("");
+        // System.out.println("These cards are in hand");
         for (int i = 0 ; i < hand.length ; i++)
         {
-            System.out.print(hand[i].getName() + " : ");
+            // System.out.print(hand[i].getName() + " : ");
         }
     }
 
     public void inputCityIntDestination()
     {
-        Scanner scan=new Scanner(System.in);
+        Scanner scan=new Scanner( System.in);
         int destination = scan.nextInt();
         goObjectCity(pandemicBoard.cities[destination]);
     }
@@ -498,11 +557,11 @@ public class Player
 
     public void oldAIDecision()
     {
-        System.out.print(this.getPlayerName() + " is thinking..... ");
+        // System.out.print(this.getPlayerName() + " is thinking..... ");
         boolean checkCure = checkCureWorthIt();
         if (checkCure)
         {
-            System.out.println("might be worth trying to find a cure.");
+            // System.out.println("might be worth trying to find a cure.");
             if (!checkTryCure())
             {
                 tryDriveResearch();
@@ -511,10 +570,10 @@ public class Player
         if (!checkCure && (getDistanceResearch() > 3) && (tactic > 0) )
         {
             tactic--;
-            System.out.print("They are far enough from a research station to consider building one.");
+            // System.out.print("They are far enough from a research station to consider building one.");
             if (!buildResearchStation(playerPiece.getLocation()))
             {
-                System.out.println(" Can't find the required card.");
+                // System.out.println(" Can't find the required card.");
                 fireFight();
             }
         }
@@ -529,7 +588,7 @@ public class Player
         
         if (tactic < -500 )
         {
-            System.out.println("out of ideas, will drive randomly");
+            // System.out.println("out of ideas, will drive randomly");
             driveRandom();
         }
         tactic--;
@@ -538,7 +597,7 @@ public class Player
     // Player will either treat disease or go to a city with 3 cubes.
     public void fireFight()
     {
-            System.out.print("Wants to treat disease... ");
+            // System.out.print("Wants to treat disease... ");
             if (!tryTreat(3))
             {
                 if (!go3CubeCities())
@@ -549,7 +608,7 @@ public class Player
                         tryTreat(1);
                         if (!go1CubeCities())
                         {
-                            System.out.println("Going to drive randomly as can't think of anything.");
+                            // System.out.println("Going to drive randomly as can't think of anything.");
                             driveRandom();
                         }
                     }
@@ -565,14 +624,14 @@ public class Player
         City locationCity = playerPiece.getLocation();
         if (locationCity.getMaxCube() >= threshold)
         {
-            System.out.println("As there are " + threshold + " cubes in " + locationCity.getName() + " " + this.getPlayerName() + " will try and treat disease.");
+            // System.out.println("As there are " + threshold + " cubes in " + locationCity.getName() + " " + this.getPlayerName() + " will try and treat disease.");
             String locationColour = locationCity.getColour();
             treatDisease(locationCity,locationColour);
             toReturn = true;
         }
         else 
         {
-            System.out.println("Doesn't think it's worth trying to treat here.");
+            // System.out.println("Doesn't think it's worth trying to treat here.");
         }
         return toReturn;
         
@@ -584,16 +643,16 @@ public class Player
         {
             if (discoverCure(playerPiece.getLocation(),tryCureCardColour()))
             {
-                System.out.println(this.getPlayerName() + "has discovered a cure!");
+                // System.out.println(this.getPlayerName() + "has discovered a cure!");
                 for (int i = 0 ; i < 5 ; i ++)
                 {
-                    System.out.println("WHOOO!");
+                    // System.out.println("WHOOO!");
                 }
                 return true;
             }
             else
             {
-                System.out.println("They need to go to a researh station.");
+                // System.out.println("They need to go to a researh station.");
             }
         }
         else 
@@ -605,7 +664,7 @@ public class Player
     
     public void tryDriveResearch()
     {
-        System.out.println("Setting cities with research stations as destinations.");
+        // System.out.println("Setting cities with research stations as destinations.");
         getDistances(pandemicBoard.getResearchLocations());
         // System.out.println("Calculating destination");
         City toDriveTo = calculateDestination();
@@ -669,17 +728,21 @@ public class Player
         
     }
 
-    public void goObjectCity(City destination)
+    public boolean goObjectCity(City destination)
     {
+        boolean toReturn = false;
         City[] destinationToSet = new City[1];
         destinationToSet[0]=destination;
-        System.out.println("Setting as " + destination.getName() + "as destination.");
+        // System.out.println("Setting as " + destination.getName() + "as destination.");
         getDistances(destinationToSet);
-        System.out.println("Calculating destination");
+        // System.out.println("Calculating destination");
         City toDriveTo = calculateDestination();
-        System.out.println("I'll try to drive to " + toDriveTo.getName());
-        driveCity(playerPiece.getLocation(),toDriveTo);        
-
+        // System.out.println("I'll try to drive to " + toDriveTo.getName());
+        if (driveCity(playerPiece.getLocation(),toDriveTo))
+        {
+            toReturn = true;
+        }
+        return toReturn;
     }
     
     public void getDistances(City[] destinations)
@@ -758,13 +821,13 @@ public class Player
         {
             if (!playerPiece.getLocationConnections()[i].getName().equals(" "))
             {
-                //System.out.print("might go to " + playerPiece.getLocationConnections()[i].getName());
-                //System.out.println(" which has a distance of " + playerPiece.getLocationConnections()[i].getDistance());
+                //// System.out.print("might go to " + playerPiece.getLocationConnections()[i].getName());
+                //// System.out.println(" which has a distance of " + playerPiece.getLocationConnections()[i].getDistance());
             }
             if (playerPiece.getLocationConnections()[i].getDistance() < closestDestination &&
             !playerPiece.getLocationConnections()[i].getName().equals(" "))
             {
-                //System.out.println("Will probably go to " + playerPiece.getLocationConnections()[i].getName());
+                //// System.out.println("Will probably go to " + playerPiece.getLocationConnections()[i].getName());
                 toReturn = playerPiece.getLocationConnections()[i];
                 closestDestination = playerPiece.getLocationConnections()[i].getDistance();
             }
@@ -778,21 +841,21 @@ public class Player
         City[] cube3Cities = pandemicBoard.get3CubeCities();
         if (cube3Cities.length > 0)
         {
-            //System.out.print("Setting 3 cube cities -");
+            //// System.out.print("Setting 3 cube cities -");
             for (int i = 0 ; i < cube3Cities.length ; i ++)
             {
-                //System.out.print(" " + cube3Cities[i].getName());
+                //// System.out.print(" " + cube3Cities[i].getName());
             }
             getDistances(cube3Cities);
-            //System.out.println(" as destinations.");
+            //// System.out.println(" as destinations.");
             City toDriveTo = calculateDestination();
-            //System.out.println(this.getPlayerName() + " will go to " + toDriveTo.getName());
+            //// System.out.println(this.getPlayerName() + " will go to " + toDriveTo.getName());
             driveCity(playerPiece.getLocation(),toDriveTo);
             return true;
         }
         else
         {
-            System.out.println("No 3 cube cities.");
+            // System.out.println("No 3 cube cities.");
             return false;
         }
     }
@@ -802,21 +865,21 @@ public class Player
         City[] cube2Cities = pandemicBoard.get2CubeCities();
         if (cube2Cities.length > 0)
         {
-            //System.out.print("Setting 2 cube cities -");
+            //// System.out.print("Setting 2 cube cities -");
             for (int i = 0 ; i < cube2Cities.length ; i ++)
             {
-                //System.out.print(" " + cube2Cities[i].getName());
+                //// System.out.print(" " + cube2Cities[i].getName());
             }
             getDistances(cube2Cities);
-            //System.out.println(" as destinations.");
+            //// System.out.println(" as destinations.");
             City toDriveTo = calculateDestination();
-            //System.out.println(this.getPlayerName() + " will go to " + toDriveTo.getName());
+            //// System.out.println(this.getPlayerName() + " will go to " + toDriveTo.getName());
             driveCity(playerPiece.getLocation(),toDriveTo);
             return true;
         }
         else
         {
-            //System.out.println("No 2 cube cities.");
+            //// System.out.println("No 2 cube cities.");
             return false;
         }
     }       
@@ -826,21 +889,21 @@ public class Player
         City[] cube1Cities = pandemicBoard.get1CubeCities();
         if (cube1Cities.length > 0)
         {
-            //System.out.print("Setting 1 cube cities -");
+            //// System.out.print("Setting 1 cube cities -");
             for (int i = 0 ; i < cube1Cities.length ; i ++)
             {
-                //System.out.print(" " + cube1Cities[i].getName());
+                //// System.out.print(" " + cube1Cities[i].getName());
             }
             getDistances(cube1Cities);
-            //System.out.println(" as destinations.");
+            //// System.out.println(" as destinations.");
             City toDriveTo = calculateDestination();
-            //System.out.println(this.getPlayerName() + " will go to " + toDriveTo.getName());
+            //// System.out.println(this.getPlayerName() + " will go to " + toDriveTo.getName());
             driveCity(playerPiece.getLocation(),toDriveTo);
             return true;
         }
         else
         {
-            //System.out.println("No 1 cube cities.");
+            //// System.out.println("No 1 cube cities.");
             return false;
         }
     }       
